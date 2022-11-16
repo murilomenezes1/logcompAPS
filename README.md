@@ -9,7 +9,7 @@ RELEXPRESSION = EXPRESSION, {("maior" | "menor" | "igual"), EXPRESSION };
 WHILE = "enquanto", "(", RELEXPRESSION, ")", STATEMENT;  
 IF = "se", "(", RELEXPRESSION, ")", STATEMENTE, (("senao", STATEMENT) | LAMBDA);  
 ASSIGNEMENT = (IDENTIFIER, "=", RELEXPRESSION) | ("(", {RELEXPRESSION, {"," | RELEXPRESSION}}, ")");  
-RETURN = "devolva", "(", RELEXPRESSION, ")";  
+RETURN = "retorna", "(", RELEXPRESSION, ")";  
 PRINT = "imprima", "(", RELEXPRESSION, ")";  
 READ = "receba", "(",")";  
 IDENTIFIER = LETTER, {LETTER | DIGIT | "_"};  
