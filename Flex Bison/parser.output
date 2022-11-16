@@ -1,0 +1,896 @@
+Terminals unused in grammar
+
+    TCEQ
+    TRETURN
+
+
+Grammar
+
+    0 $accept: program $end
+
+    1 program: block
+
+    2 block: TLBRACE statement TRBRACE
+    3      | TLBRACE TRBRACE
+
+    4 statement: ident
+    5          | print
+    6          | if
+    7          | while
+    8          | var_type TSEMICOLON
+
+    9 term: factor
+   10     | factor TMUL factor
+   11     | factor TDIV factor
+   12     | factor TAND factor
+
+   13 expression: term TPLUS term
+   14           | term TMINUS term
+   15           | term TOR term
+
+   16 factor: TINTEGER
+   17       | TSTRING
+   18       | TIDENTIFIER
+   19       | TPLUS factor
+   20       | TMINUS factor
+   21       | TCNE factor
+   22       | TREAD TLPAREN TRPAREN
+   23       | TLPAREN relexpression TRPAREN
+
+   24 relexpression: expression TEQUAL expression
+   25              | expression TCLT expression
+   26              | expression TCGT expression
+
+   27 print: TPRINT TLPAREN relexpression TRPAREN
+
+   28 if: TIF TLPAREN relexpression TRPAREN statement else
+
+   29 while: TWHILE TLPAREN relexpression TRPAREN statement
+
+   30 else: TELSE statement
+
+   31 var_type: TVAR_TYPE TIDENTIFIER
+   32         | TCOMMA TIDENTIFIER
+
+   33 ident: var_type TIDENTIFIER TEQUAL relexpression
+
+
+Terminals, with rules where they appear
+
+    $end (0) 0
+    error (256)
+    TIDENTIFIER (258) 18 31 32 33
+    TINTEGER (259) 16
+    TSTRING (260) 17
+    TCEQ (261)
+    TCNE (262) 21
+    TCLT (263) 25
+    TCGT (264) 26
+    TEQUAL (265) 24 33
+    TAND (266) 12
+    TOR (267) 15
+    TLPAREN (268) 22 23 27 28 29
+    TRPAREN (269) 22 23 27 28 29
+    TLBRACE (270) 2 3
+    TRBRACE (271) 2 3
+    TCOMMA (272) 32
+    TSEMICOLON (273) 8
+    TPLUS (274) 13 19
+    TMINUS (275) 14 20
+    TMUL (276) 10
+    TDIV (277) 11
+    TPRINT (278) 27
+    TREAD (279) 22
+    TWHILE (280) 29
+    TIF (281) 28
+    TELSE (282) 30
+    TVAR_TYPE (283) 31
+    TRETURN (284)
+
+
+Nonterminals, with rules where they appear
+
+    $accept (30)
+        on left: 0
+    program (31)
+        on left: 1
+        on right: 0
+    block (32)
+        on left: 2 3
+        on right: 1
+    statement (33)
+        on left: 4 5 6 7 8
+        on right: 2 28 29 30
+    term (34)
+        on left: 9 10 11 12
+        on right: 13 14 15
+    expression (35)
+        on left: 13 14 15
+        on right: 24 25 26
+    factor (36)
+        on left: 16 17 18 19 20 21 22 23
+        on right: 9 10 11 12 19 20 21
+    relexpression (37)
+        on left: 24 25 26
+        on right: 23 27 28 29 33
+    print (38)
+        on left: 27
+        on right: 5
+    if (39)
+        on left: 28
+        on right: 6
+    while (40)
+        on left: 29
+        on right: 7
+    else (41)
+        on left: 30
+        on right: 28
+    var_type (42)
+        on left: 31 32
+        on right: 8 33
+    ident (43)
+        on left: 33
+        on right: 4
+
+
+State 0
+
+    0 $accept: . program $end
+
+    TLBRACE  shift, and go to state 1
+
+    program  go to state 2
+    block    go to state 3
+
+
+State 1
+
+    2 block: TLBRACE . statement TRBRACE
+    3      | TLBRACE . TRBRACE
+
+    TRBRACE    shift, and go to state 4
+    TCOMMA     shift, and go to state 5
+    TPRINT     shift, and go to state 6
+    TWHILE     shift, and go to state 7
+    TIF        shift, and go to state 8
+    TVAR_TYPE  shift, and go to state 9
+
+    statement  go to state 10
+    print      go to state 11
+    if         go to state 12
+    while      go to state 13
+    var_type   go to state 14
+    ident      go to state 15
+
+
+State 2
+
+    0 $accept: program . $end
+
+    $end  shift, and go to state 16
+
+
+State 3
+
+    1 program: block .
+
+    $default  reduce using rule 1 (program)
+
+
+State 4
+
+    3 block: TLBRACE TRBRACE .
+
+    $default  reduce using rule 3 (block)
+
+
+State 5
+
+   32 var_type: TCOMMA . TIDENTIFIER
+
+    TIDENTIFIER  shift, and go to state 17
+
+
+State 6
+
+   27 print: TPRINT . TLPAREN relexpression TRPAREN
+
+    TLPAREN  shift, and go to state 18
+
+
+State 7
+
+   29 while: TWHILE . TLPAREN relexpression TRPAREN statement
+
+    TLPAREN  shift, and go to state 19
+
+
+State 8
+
+   28 if: TIF . TLPAREN relexpression TRPAREN statement else
+
+    TLPAREN  shift, and go to state 20
+
+
+State 9
+
+   31 var_type: TVAR_TYPE . TIDENTIFIER
+
+    TIDENTIFIER  shift, and go to state 21
+
+
+State 10
+
+    2 block: TLBRACE statement . TRBRACE
+
+    TRBRACE  shift, and go to state 22
+
+
+State 11
+
+    5 statement: print .
+
+    $default  reduce using rule 5 (statement)
+
+
+State 12
+
+    6 statement: if .
+
+    $default  reduce using rule 6 (statement)
+
+
+State 13
+
+    7 statement: while .
+
+    $default  reduce using rule 7 (statement)
+
+
+State 14
+
+    8 statement: var_type . TSEMICOLON
+   33 ident: var_type . TIDENTIFIER TEQUAL relexpression
+
+    TIDENTIFIER  shift, and go to state 23
+    TSEMICOLON   shift, and go to state 24
+
+
+State 15
+
+    4 statement: ident .
+
+    $default  reduce using rule 4 (statement)
+
+
+State 16
+
+    0 $accept: program $end .
+
+    $default  accept
+
+
+State 17
+
+   32 var_type: TCOMMA TIDENTIFIER .
+
+    $default  reduce using rule 32 (var_type)
+
+
+State 18
+
+   27 print: TPRINT TLPAREN . relexpression TRPAREN
+
+    TIDENTIFIER  shift, and go to state 25
+    TINTEGER     shift, and go to state 26
+    TSTRING      shift, and go to state 27
+    TCNE         shift, and go to state 28
+    TLPAREN      shift, and go to state 29
+    TPLUS        shift, and go to state 30
+    TMINUS       shift, and go to state 31
+    TREAD        shift, and go to state 32
+
+    term           go to state 33
+    expression     go to state 34
+    factor         go to state 35
+    relexpression  go to state 36
+
+
+State 19
+
+   29 while: TWHILE TLPAREN . relexpression TRPAREN statement
+
+    TIDENTIFIER  shift, and go to state 25
+    TINTEGER     shift, and go to state 26
+    TSTRING      shift, and go to state 27
+    TCNE         shift, and go to state 28
+    TLPAREN      shift, and go to state 29
+    TPLUS        shift, and go to state 30
+    TMINUS       shift, and go to state 31
+    TREAD        shift, and go to state 32
+
+    term           go to state 33
+    expression     go to state 34
+    factor         go to state 35
+    relexpression  go to state 37
+
+
+State 20
+
+   28 if: TIF TLPAREN . relexpression TRPAREN statement else
+
+    TIDENTIFIER  shift, and go to state 25
+    TINTEGER     shift, and go to state 26
+    TSTRING      shift, and go to state 27
+    TCNE         shift, and go to state 28
+    TLPAREN      shift, and go to state 29
+    TPLUS        shift, and go to state 30
+    TMINUS       shift, and go to state 31
+    TREAD        shift, and go to state 32
+
+    term           go to state 33
+    expression     go to state 34
+    factor         go to state 35
+    relexpression  go to state 38
+
+
+State 21
+
+   31 var_type: TVAR_TYPE TIDENTIFIER .
+
+    $default  reduce using rule 31 (var_type)
+
+
+State 22
+
+    2 block: TLBRACE statement TRBRACE .
+
+    $default  reduce using rule 2 (block)
+
+
+State 23
+
+   33 ident: var_type TIDENTIFIER . TEQUAL relexpression
+
+    TEQUAL  shift, and go to state 39
+
+
+State 24
+
+    8 statement: var_type TSEMICOLON .
+
+    $default  reduce using rule 8 (statement)
+
+
+State 25
+
+   18 factor: TIDENTIFIER .
+
+    $default  reduce using rule 18 (factor)
+
+
+State 26
+
+   16 factor: TINTEGER .
+
+    $default  reduce using rule 16 (factor)
+
+
+State 27
+
+   17 factor: TSTRING .
+
+    $default  reduce using rule 17 (factor)
+
+
+State 28
+
+   21 factor: TCNE . factor
+
+    TIDENTIFIER  shift, and go to state 25
+    TINTEGER     shift, and go to state 26
+    TSTRING      shift, and go to state 27
+    TCNE         shift, and go to state 28
+    TLPAREN      shift, and go to state 29
+    TPLUS        shift, and go to state 30
+    TMINUS       shift, and go to state 31
+    TREAD        shift, and go to state 32
+
+    factor  go to state 40
+
+
+State 29
+
+   23 factor: TLPAREN . relexpression TRPAREN
+
+    TIDENTIFIER  shift, and go to state 25
+    TINTEGER     shift, and go to state 26
+    TSTRING      shift, and go to state 27
+    TCNE         shift, and go to state 28
+    TLPAREN      shift, and go to state 29
+    TPLUS        shift, and go to state 30
+    TMINUS       shift, and go to state 31
+    TREAD        shift, and go to state 32
+
+    term           go to state 33
+    expression     go to state 34
+    factor         go to state 35
+    relexpression  go to state 41
+
+
+State 30
+
+   19 factor: TPLUS . factor
+
+    TIDENTIFIER  shift, and go to state 25
+    TINTEGER     shift, and go to state 26
+    TSTRING      shift, and go to state 27
+    TCNE         shift, and go to state 28
+    TLPAREN      shift, and go to state 29
+    TPLUS        shift, and go to state 30
+    TMINUS       shift, and go to state 31
+    TREAD        shift, and go to state 32
+
+    factor  go to state 42
+
+
+State 31
+
+   20 factor: TMINUS . factor
+
+    TIDENTIFIER  shift, and go to state 25
+    TINTEGER     shift, and go to state 26
+    TSTRING      shift, and go to state 27
+    TCNE         shift, and go to state 28
+    TLPAREN      shift, and go to state 29
+    TPLUS        shift, and go to state 30
+    TMINUS       shift, and go to state 31
+    TREAD        shift, and go to state 32
+
+    factor  go to state 43
+
+
+State 32
+
+   22 factor: TREAD . TLPAREN TRPAREN
+
+    TLPAREN  shift, and go to state 44
+
+
+State 33
+
+   13 expression: term . TPLUS term
+   14           | term . TMINUS term
+   15           | term . TOR term
+
+    TOR     shift, and go to state 45
+    TPLUS   shift, and go to state 46
+    TMINUS  shift, and go to state 47
+
+
+State 34
+
+   24 relexpression: expression . TEQUAL expression
+   25              | expression . TCLT expression
+   26              | expression . TCGT expression
+
+    TCLT    shift, and go to state 48
+    TCGT    shift, and go to state 49
+    TEQUAL  shift, and go to state 50
+
+
+State 35
+
+    9 term: factor .
+   10     | factor . TMUL factor
+   11     | factor . TDIV factor
+   12     | factor . TAND factor
+
+    TAND  shift, and go to state 51
+    TMUL  shift, and go to state 52
+    TDIV  shift, and go to state 53
+
+    $default  reduce using rule 9 (term)
+
+
+State 36
+
+   27 print: TPRINT TLPAREN relexpression . TRPAREN
+
+    TRPAREN  shift, and go to state 54
+
+
+State 37
+
+   29 while: TWHILE TLPAREN relexpression . TRPAREN statement
+
+    TRPAREN  shift, and go to state 55
+
+
+State 38
+
+   28 if: TIF TLPAREN relexpression . TRPAREN statement else
+
+    TRPAREN  shift, and go to state 56
+
+
+State 39
+
+   33 ident: var_type TIDENTIFIER TEQUAL . relexpression
+
+    TIDENTIFIER  shift, and go to state 25
+    TINTEGER     shift, and go to state 26
+    TSTRING      shift, and go to state 27
+    TCNE         shift, and go to state 28
+    TLPAREN      shift, and go to state 29
+    TPLUS        shift, and go to state 30
+    TMINUS       shift, and go to state 31
+    TREAD        shift, and go to state 32
+
+    term           go to state 33
+    expression     go to state 34
+    factor         go to state 35
+    relexpression  go to state 57
+
+
+State 40
+
+   21 factor: TCNE factor .
+
+    $default  reduce using rule 21 (factor)
+
+
+State 41
+
+   23 factor: TLPAREN relexpression . TRPAREN
+
+    TRPAREN  shift, and go to state 58
+
+
+State 42
+
+   19 factor: TPLUS factor .
+
+    $default  reduce using rule 19 (factor)
+
+
+State 43
+
+   20 factor: TMINUS factor .
+
+    $default  reduce using rule 20 (factor)
+
+
+State 44
+
+   22 factor: TREAD TLPAREN . TRPAREN
+
+    TRPAREN  shift, and go to state 59
+
+
+State 45
+
+   15 expression: term TOR . term
+
+    TIDENTIFIER  shift, and go to state 25
+    TINTEGER     shift, and go to state 26
+    TSTRING      shift, and go to state 27
+    TCNE         shift, and go to state 28
+    TLPAREN      shift, and go to state 29
+    TPLUS        shift, and go to state 30
+    TMINUS       shift, and go to state 31
+    TREAD        shift, and go to state 32
+
+    term    go to state 60
+    factor  go to state 35
+
+
+State 46
+
+   13 expression: term TPLUS . term
+
+    TIDENTIFIER  shift, and go to state 25
+    TINTEGER     shift, and go to state 26
+    TSTRING      shift, and go to state 27
+    TCNE         shift, and go to state 28
+    TLPAREN      shift, and go to state 29
+    TPLUS        shift, and go to state 30
+    TMINUS       shift, and go to state 31
+    TREAD        shift, and go to state 32
+
+    term    go to state 61
+    factor  go to state 35
+
+
+State 47
+
+   14 expression: term TMINUS . term
+
+    TIDENTIFIER  shift, and go to state 25
+    TINTEGER     shift, and go to state 26
+    TSTRING      shift, and go to state 27
+    TCNE         shift, and go to state 28
+    TLPAREN      shift, and go to state 29
+    TPLUS        shift, and go to state 30
+    TMINUS       shift, and go to state 31
+    TREAD        shift, and go to state 32
+
+    term    go to state 62
+    factor  go to state 35
+
+
+State 48
+
+   25 relexpression: expression TCLT . expression
+
+    TIDENTIFIER  shift, and go to state 25
+    TINTEGER     shift, and go to state 26
+    TSTRING      shift, and go to state 27
+    TCNE         shift, and go to state 28
+    TLPAREN      shift, and go to state 29
+    TPLUS        shift, and go to state 30
+    TMINUS       shift, and go to state 31
+    TREAD        shift, and go to state 32
+
+    term        go to state 33
+    expression  go to state 63
+    factor      go to state 35
+
+
+State 49
+
+   26 relexpression: expression TCGT . expression
+
+    TIDENTIFIER  shift, and go to state 25
+    TINTEGER     shift, and go to state 26
+    TSTRING      shift, and go to state 27
+    TCNE         shift, and go to state 28
+    TLPAREN      shift, and go to state 29
+    TPLUS        shift, and go to state 30
+    TMINUS       shift, and go to state 31
+    TREAD        shift, and go to state 32
+
+    term        go to state 33
+    expression  go to state 64
+    factor      go to state 35
+
+
+State 50
+
+   24 relexpression: expression TEQUAL . expression
+
+    TIDENTIFIER  shift, and go to state 25
+    TINTEGER     shift, and go to state 26
+    TSTRING      shift, and go to state 27
+    TCNE         shift, and go to state 28
+    TLPAREN      shift, and go to state 29
+    TPLUS        shift, and go to state 30
+    TMINUS       shift, and go to state 31
+    TREAD        shift, and go to state 32
+
+    term        go to state 33
+    expression  go to state 65
+    factor      go to state 35
+
+
+State 51
+
+   12 term: factor TAND . factor
+
+    TIDENTIFIER  shift, and go to state 25
+    TINTEGER     shift, and go to state 26
+    TSTRING      shift, and go to state 27
+    TCNE         shift, and go to state 28
+    TLPAREN      shift, and go to state 29
+    TPLUS        shift, and go to state 30
+    TMINUS       shift, and go to state 31
+    TREAD        shift, and go to state 32
+
+    factor  go to state 66
+
+
+State 52
+
+   10 term: factor TMUL . factor
+
+    TIDENTIFIER  shift, and go to state 25
+    TINTEGER     shift, and go to state 26
+    TSTRING      shift, and go to state 27
+    TCNE         shift, and go to state 28
+    TLPAREN      shift, and go to state 29
+    TPLUS        shift, and go to state 30
+    TMINUS       shift, and go to state 31
+    TREAD        shift, and go to state 32
+
+    factor  go to state 67
+
+
+State 53
+
+   11 term: factor TDIV . factor
+
+    TIDENTIFIER  shift, and go to state 25
+    TINTEGER     shift, and go to state 26
+    TSTRING      shift, and go to state 27
+    TCNE         shift, and go to state 28
+    TLPAREN      shift, and go to state 29
+    TPLUS        shift, and go to state 30
+    TMINUS       shift, and go to state 31
+    TREAD        shift, and go to state 32
+
+    factor  go to state 68
+
+
+State 54
+
+   27 print: TPRINT TLPAREN relexpression TRPAREN .
+
+    $default  reduce using rule 27 (print)
+
+
+State 55
+
+   29 while: TWHILE TLPAREN relexpression TRPAREN . statement
+
+    TCOMMA     shift, and go to state 5
+    TPRINT     shift, and go to state 6
+    TWHILE     shift, and go to state 7
+    TIF        shift, and go to state 8
+    TVAR_TYPE  shift, and go to state 9
+
+    statement  go to state 69
+    print      go to state 11
+    if         go to state 12
+    while      go to state 13
+    var_type   go to state 14
+    ident      go to state 15
+
+
+State 56
+
+   28 if: TIF TLPAREN relexpression TRPAREN . statement else
+
+    TCOMMA     shift, and go to state 5
+    TPRINT     shift, and go to state 6
+    TWHILE     shift, and go to state 7
+    TIF        shift, and go to state 8
+    TVAR_TYPE  shift, and go to state 9
+
+    statement  go to state 70
+    print      go to state 11
+    if         go to state 12
+    while      go to state 13
+    var_type   go to state 14
+    ident      go to state 15
+
+
+State 57
+
+   33 ident: var_type TIDENTIFIER TEQUAL relexpression .
+
+    $default  reduce using rule 33 (ident)
+
+
+State 58
+
+   23 factor: TLPAREN relexpression TRPAREN .
+
+    $default  reduce using rule 23 (factor)
+
+
+State 59
+
+   22 factor: TREAD TLPAREN TRPAREN .
+
+    $default  reduce using rule 22 (factor)
+
+
+State 60
+
+   15 expression: term TOR term .
+
+    $default  reduce using rule 15 (expression)
+
+
+State 61
+
+   13 expression: term TPLUS term .
+
+    $default  reduce using rule 13 (expression)
+
+
+State 62
+
+   14 expression: term TMINUS term .
+
+    $default  reduce using rule 14 (expression)
+
+
+State 63
+
+   25 relexpression: expression TCLT expression .
+
+    $default  reduce using rule 25 (relexpression)
+
+
+State 64
+
+   26 relexpression: expression TCGT expression .
+
+    $default  reduce using rule 26 (relexpression)
+
+
+State 65
+
+   24 relexpression: expression TEQUAL expression .
+
+    $default  reduce using rule 24 (relexpression)
+
+
+State 66
+
+   12 term: factor TAND factor .
+
+    $default  reduce using rule 12 (term)
+
+
+State 67
+
+   10 term: factor TMUL factor .
+
+    $default  reduce using rule 10 (term)
+
+
+State 68
+
+   11 term: factor TDIV factor .
+
+    $default  reduce using rule 11 (term)
+
+
+State 69
+
+   29 while: TWHILE TLPAREN relexpression TRPAREN statement .
+
+    $default  reduce using rule 29 (while)
+
+
+State 70
+
+   28 if: TIF TLPAREN relexpression TRPAREN statement . else
+
+    TELSE  shift, and go to state 71
+
+    else  go to state 72
+
+
+State 71
+
+   30 else: TELSE . statement
+
+    TCOMMA     shift, and go to state 5
+    TPRINT     shift, and go to state 6
+    TWHILE     shift, and go to state 7
+    TIF        shift, and go to state 8
+    TVAR_TYPE  shift, and go to state 9
+
+    statement  go to state 73
+    print      go to state 11
+    if         go to state 12
+    while      go to state 13
+    var_type   go to state 14
+    ident      go to state 15
+
+
+State 72
+
+   28 if: TIF TLPAREN relexpression TRPAREN statement else .
+
+    $default  reduce using rule 28 (if)
+
+
+State 73
+
+   30 else: TELSE statement .
+
+    $default  reduce using rule 30 (else)
