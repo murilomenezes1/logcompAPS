@@ -11,7 +11,7 @@ IF = "se", "(", RELEXPRESSION, ")", STATEMENTE, (("senao", STATEMENT) | LAMBDA);
 ASSIGNEMENT = (IDENTIFIER, "=", RELEXPRESSION) | ("(", {RELEXPRESSION, {"," | RELEXPRESSION}}, ")");  
 RETURN = "devolva", "(", RELEXPRESSION, ")";  
 PRINT = "imprima", "(", RELEXPRESSION, ")";  
-SCANF = "receba", "(",")";  
+READ = "receba", "(",")";  
 IDENTIFIER = LETTER, {LETTER | DIGIT | "_"};  
 DIGIT = ( 0 | 1 | ... | 9 | 10 );  
 INT = DIGITI, { DIGIT };  
