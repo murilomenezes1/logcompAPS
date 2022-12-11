@@ -1,5 +1,5 @@
 PROGRAM = (LAMBDA | DECLARATION);  
-DECLARATION = ("int" | "str" | "void"), IDENTIFIER, "(", {("int"|"str"), IDENTIFIER, {"," | ("int" | "str"), IDENTIFIER }}, ")", BLOCK;  
+DECLARATION = ("fn"), IDENTIFIER, "(", {("int"|"str"), IDENTIFIER, {"," | ("int" | "str"), IDENTIFIER }}, ")", BLOCK;  
 BLOCK = ("{", STATEMENT, "}" | "{","}");  
 STATEMENT = (((LAMBDA | ASSIGNMENT | PRINT | VAR_TYPE | RETURN), ";") | (BLOCK | IF | WHILE));  
 FACTOR = INT | STRING | (IDENTIFIER, {"(", "RELEXPRESSION, {"," | RELEXPRESSION}} ")" }) | (("mais" | "menos" | "diferente" | FACTOR) | "(", RELEXPRESSION, ")" |SCANF;  
