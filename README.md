@@ -1,7 +1,7 @@
 PROGRAM = (LAMBDA | DECLARATION);  
 DECLARATION = ("fn"), IDENTIFIER, "(", { IDENTIFIER, ":", ("i32"|"String"), {"," , IDENTIFIER, ":", ("i32" | "String")}}, ")", "->" , ("i32" | "String"), BLOCK;  
 BLOCK = ("{", STATEMENT, "}" | "{","}");  
-STATEMENT = (((LAMBDA | ASSIGNMENT | PRINT | VAR_TYPE | RETURN), ";") | (BLOCK | IF | WHILE));  
+STATEMENT = (((LAMBDA | ASSIGNMENT | PRINT | VAR | RETURN), ";") | (BLOCK | IF | WHILE));  
 FACTOR = INT | STRING | (IDENTIFIER, {"(", "RELEXPRESSION, {"," | RELEXPRESSION}} ")" }) | (("mais" | "menos" | "diferente" | FACTOR) | "(", RELEXPRESSION, ")" | READ;  
 TERM = FACTOR, {("vezes" | "dividido" | "E"), FACTOR};  
 EXPRESSION = TERM, {("mais" | "menos" | "OU"), TERM};  
