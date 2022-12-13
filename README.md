@@ -1,3 +1,5 @@
+**EBNF**
+
 PROGRAM = (LAMBDA | DECLARATION);  
 DECLARATION = ("fn"), IDENTIFIER, "(", { IDENTIFIER, ":", ("i32"|"String"), {"," , IDENTIFIER, ":", ("i32" | "String")}}, ")", "->" , ("i32" | "String"), BLOCK;  
 BLOCK = ("{", STATEMENT, "}" | "{","}");  
